@@ -77,12 +77,19 @@ class NippoManager:
         date_list = []
 
         today = datetime.date.today()
-        last_month = (today.month + 11 - 1) % 12 + 1
-        day_from = datetime.date(today.year, last_month, 1)
+
+        if today.month == 1:
+            y = today.year - 1
+            m = 12
+        else:
+            y = today.year
+            m = today.month - 1
+
+        day_from = datetime.date(y, m, 1)
         days = (today - day_from).days
 
         for i in range(days + 1):
-            date = day_from + i * datetime.timedelta(days=1.0)
+            date = day_from + datetime.timedelta(days=i)
             date_list.append(date)
 
         return date_list
